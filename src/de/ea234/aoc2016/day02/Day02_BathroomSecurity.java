@@ -83,21 +83,12 @@ public class Day02_BathroomSecurity
 
   private static void calculate01( List< String > pListInput, boolean pKnzDebug )
   {
-    /*
-     * *******************************************************************************************************
-     * Initializing Variables
-     * *******************************************************************************************************
-     */
-    String result_part_01 = "";
-    String result_part_02 = "";
-
-    result_part_01 = doMovement( pListInput, 2, 2, "123,456,789" );
-    result_part_02 = doMovement( pListInput, 3, 1, "  1, 234,56789, ABC,  D" );
+    String result_part_01 = doMovement( pListInput, 2, 2, "123,456,789"             );
+    String result_part_02 = doMovement( pListInput, 3, 1, "  1, 234,56789, ABC,  D" );
 
     wl( "" );
     wl( "Result Part 1 " + result_part_01 );
     wl( "Result Part 2 " + result_part_02 );
-    wl( "" );
     wl( "" );
   }
 
