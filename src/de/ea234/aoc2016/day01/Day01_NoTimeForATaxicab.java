@@ -180,7 +180,6 @@ public class Day01_NoTimeForATaxicab
 
     for ( String input_str : direction_list )
     {
-
       char turn_direction = input_str.charAt( 0 );
 
       cur_facing = getNewFacing90( cur_facing, turn_direction );
@@ -216,7 +215,6 @@ public class Day01_NoTimeForATaxicab
 
         if ( map_grid_blocks.getProperty( block_key ) != null )
         {
-
           if ( result_part_02 == 0 )
           {
             wl( "" );
