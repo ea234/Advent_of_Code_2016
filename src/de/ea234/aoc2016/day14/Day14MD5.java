@@ -16,18 +16,23 @@ public class Day14MD5
   {
     number_from = pNumber + 1;
 
-    number_to = number_from + 1000;
+    number_to   = number_from + 1000;
 
-    str_input = pInput;
+    str_input   = pInput;
 
-    str_md5 = pMD5;
+    str_md5     = pMD5;
 
     str_triple_char = pTripleChar;
   }
-  
-  public void setNumberTo( int pNumber ) 
+
+  public void setNumberTo( int pNumber )
   {
     number_to = pNumber;
+  }
+
+  public int getIndexNumber()
+  {
+    return number_from - 1;
   }
 
   public boolean checkActive( int pNumber )
@@ -44,5 +49,4 @@ public class Day14MD5
   {
     return String.format( "Input %-20s  MD5 %s  %s  = %8d - %8d ", this.str_input, this.str_md5, this.str_triple_char, number_from, number_to );
   }
-
 }

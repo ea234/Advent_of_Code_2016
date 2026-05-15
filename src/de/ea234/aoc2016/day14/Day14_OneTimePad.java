@@ -13,12 +13,17 @@ import java.util.List;
  * 
  * https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/
  * 
- * --------------------------------------------------------------------------------
- * Calculate - Salt = abc
  * 
+ * --------------------------------------------------------------------------------
+ * Calculate - Salt = abc  Key Stretching Value -1
+ * 
+ * 
+ * Calculation Time 00:00:00:139
  * 
  * MD5 with triple values 2315
  * MD5 with fiver values  12
+ * 
+ * cur_index end          22805
  * 
  * 64 Keys:
  *    1 Input abc92                 MD5 ae2e85dd75d63e916a525df95e999ea0  9  =       93 -      200 
@@ -85,93 +90,92 @@ import java.util.List;
  *   62 Input abc22023              MD5 705825e1986ccc196166f9d9d29c16bd  c  =    22024 -    22804 
  *   63 Input abc22193              MD5 00ee429b6acccdab81a4b6f2cd9ea278  c  =    22194 -    22804 
  *   64 Input abc22728              MD5 26ccc731a8706e0c4f979aeb341871f0  c  =    22729 -    22804 
- *   65 Input abc22804              MD5 1e15d83ba7591b79ccccc2e9a22f78b8  c  =    22805 -    23001 
- * 
- * ------------------------------------------------------------------------------------------
- * Result Part 1 22804
- * Result Part 2 0
- * 
  * --------------------------------------------------------------------------------
- * Calculate - Salt = ahsbgdzn
+ * Calculate - Salt = abc  Key Stretching Value 2016
  * 
  * 
- * MD5 with triple values 2582
- * MD5 with fiver values  9
+ * Calculation Time 00:00:20:453
+ * 
+ * MD5 with triple values 2386
+ * MD5 with fiver values  10
+ * 
+ * cur_index end          22860
  * 
  * 64 Keys:
- *    1 Input ahsbgdzn121           MD5 8ab9ec7eab0d7db90233351e7c5e6c60  3  =      122 -      380 
- *    2 Input ahsbgdzn125           MD5 e48f647c78899662cf72333f4e028780  3  =      126 -      380 
- *    3 Input ahsbgdzn198           MD5 0b1f6d4acf268333504200a68b975af5  3  =      199 -      380 
- *    4 Input ahsbgdzn229           MD5 fcb3332c8bbfa27af13fe6795b34ef5d  3  =      230 -      380 
- *    5 Input ahsbgdzn351           MD5 fef3336db9d7a13ae95ed605747e3abc  3  =      352 -      380 
- *    6 Input ahsbgdzn9058          MD5 87935273d1114174d7b74ef9ea089491  1  =     9059 -     9888 
- *    7 Input ahsbgdzn9069          MD5 c5044837d31fed01ee13c20e05511120  1  =     9070 -     9888 
- *    8 Input ahsbgdzn9086          MD5 ab3ffbe7c0d9fce0ca40a68025611124  1  =     9087 -     9888 
- *    9 Input ahsbgdzn9097          MD5 cbfe022364a6ff01cd56fee992f111a9  1  =     9098 -     9888 
- *   10 Input ahsbgdzn9107          MD5 11115a7a78f4782130667beafdc30593  1  =     9108 -     9888 
- *   11 Input ahsbgdzn9149          MD5 714319b111ba00d4b943be9446221f0d  1  =     9150 -     9888 
- *   12 Input ahsbgdzn9220          MD5 875c6a22683c6292013b8111f73a9bb9  1  =     9221 -     9888 
- *   13 Input ahsbgdzn9225          MD5 44ddcc0111ed27041699ed0a6984a9d2  1  =     9226 -     9888 
- *   14 Input ahsbgdzn9761          MD5 428331ec896a1a16c7e1f3e3d81115b3  1  =     9762 -     9888 
- *   15 Input ahsbgdzn9906          MD5 a2831dc9be0edcd559cf80755597b599  5  =     9907 -    10729 
- *   16 Input ahsbgdzn9974          MD5 2a27e74b41de398a4f555ba053f88e53  5  =     9975 -    10729 
- *   17 Input ahsbgdzn10031         MD5 cad349555ee5c4ddb57dc7af24a871d0  5  =    10032 -    10729 
- *   18 Input ahsbgdzn10042         MD5 55587c441053fb8e84efc61c49da1130  5  =    10043 -    10729 
- *   19 Input ahsbgdzn10368         MD5 0e1a0ef55516f2c1ccce2fc6d616947b  5  =    10369 -    10729 
- *   20 Input ahsbgdzn10431         MD5 1912063df82b30f1e4fe95554a0b0d71  5  =    10432 -    10729 
- *   21 Input ahsbgdzn10716         MD5 3c05b6373819e4bc96c15f28c59d8555  5  =    10717 -    10729 
- *   22 Input ahsbgdzn9945          MD5 fa4d9b9b7b5fe912ddd4ee22920b1550  d  =     9946 -    10866 
- *   23 Input ahsbgdzn9951          MD5 b6c35a2939922b40d43cddd24bcb76b5  d  =     9952 -    10866 
- *   24 Input ahsbgdzn9952          MD5 53c67a928ddde4e3c7d3faa49487a8e5  d  =     9953 -    10866 
- *   25 Input ahsbgdzn9973          MD5 52c59604ad3fc8f1866a5343ddd69f2b  d  =     9974 -    10866 
- *   26 Input ahsbgdzn9982          MD5 ca58e5455678dddbb47e2203f601bb6e  d  =     9983 -    10866 
- *   27 Input ahsbgdzn10176         MD5 d1bb1e092b577069fdddcc7ea6a60e59  d  =    10177 -    10866 
- *   28 Input ahsbgdzn10267         MD5 6373a42d55fcc1ab335ea12c90b8ddd9  d  =    10268 -    10866 
- *   29 Input ahsbgdzn10437         MD5 f8be41491591acd5fdddaeb96fa522ba  d  =    10438 -    10866 
- *   30 Input ahsbgdzn10511         MD5 8cdb56955c62ddd7b651594eb31aeef4  d  =    10512 -    10866 
- *   31 Input ahsbgdzn10612         MD5 5cd7dddd5c92d7a22442e24deb9a9fc7  d  =    10613 -    10866 
- *   32 Input ahsbgdzn10663         MD5 d55f56ec2539592dfddd0c8bffcae1fb  d  =    10664 -    10866 
- *   33 Input ahsbgdzn10804         MD5 c9e2eabe06e382c9ddd631b75e591a8f  d  =    10805 -    10866 
- *   34 Input ahsbgdzn10209         MD5 9e8d01faee2d1b0f751531fbc3be4449  4  =    10210 -    11102 
- *   35 Input ahsbgdzn10340         MD5 0a4445cf10bc95251fbfc9e90682c09c  4  =    10341 -    11102 
- *   36 Input ahsbgdzn10788         MD5 5f56a3b3daae66444020138badaaa629  4  =    10789 -    11102 
- *   37 Input ahsbgdzn11094         MD5 741304443e0c2aa9fa2e1e3826d225da  4  =    11095 -    11102 
- *   38 Input ahsbgdzn10443         MD5 cc2c33ca5f33db0ee410a7ce5dd22257  2  =    10444 -    11182 
- *   39 Input ahsbgdzn10489         MD5 7f6f82177222e8ac25e9cc98ff6421e1  2  =    10490 -    11182 
- *   40 Input ahsbgdzn10599         MD5 72832653e222888be98d47742731e4c0  2  =    10600 -    11182 
- *   41 Input ahsbgdzn10619         MD5 6d3f33657b5c63e7ab91f622235a59e7  2  =    10620 -    11182 
- *   42 Input ahsbgdzn10801         MD5 202a7615517c30e47a991c80da222c57  2  =    10802 -    11182 
- *   43 Input ahsbgdzn10844         MD5 392cbdcbe3a2790440222085ec3bff81  2  =    10845 -    11182 
- *   44 Input ahsbgdzn10896         MD5 d2226abade7c5d7c294dc8bdc2f4a6e4  2  =    10897 -    11182 
- *   45 Input ahsbgdzn11063         MD5 5a26224cf12749d12228b0d1bcd0fceb  2  =    11064 -    11182 
- *   46 Input ahsbgdzn11085         MD5 5e1cd0e0222342ba3bca784c2e4e2b09  2  =    11086 -    11182 
- *   47 Input ahsbgdzn13215         MD5 8bf14e8c7d4e999268df3525adf1beb8  9  =    13216 -    14055 
- *   48 Input ahsbgdzn13264         MD5 becbafc3098594c116f999d304bce24b  9  =    13265 -    14055 
- *   49 Input ahsbgdzn13579         MD5 28982fb10b269591fa88124a89993ce6  9  =    13580 -    14055 
- *   50 Input ahsbgdzn13612         MD5 658d2cf9327a1693c89991f335a67ec5  9  =    13613 -    14055 
- *   51 Input ahsbgdzn13716         MD5 0a1e5e99931a28b5b7d10805afcf3102  9  =    13717 -    14055 
- *   52 Input ahsbgdzn13732         MD5 b9999f43d74ae534495e7df6953dabcd  9  =    13733 -    14055 
- *   53 Input ahsbgdzn14017         MD5 fde5db9b84042b159999fb9caec7be88  9  =    14018 -    14055 
- *   54 Input ahsbgdzn20413         MD5 f5f49ebb85375510bb27692eee79bd5f  e  =    20414 -    21398 
- *   55 Input ahsbgdzn20548         MD5 38c72a1cc53beee0ab24534ec14a7de4  e  =    20549 -    21398 
- *   56 Input ahsbgdzn20697         MD5 0658b9e0eb75eee0b5ad23123f96f6b5  e  =    20698 -    21398 
- *   57 Input ahsbgdzn20959         MD5 599b1032dde92eeebcab45e8dff1eed3  e  =    20960 -    21398 
- *   58 Input ahsbgdzn21174         MD5 ebea71d0d27eee6f8e4e201ffd4ce279  e  =    21175 -    21398 
- *   59 Input ahsbgdzn21303         MD5 8d2d58e04f3ecc67adc39b02eee4e037  e  =    21304 -    21398 
- *   60 Input ahsbgdzn21345         MD5 ccaa4b3a36d0ff030df70f72e07eeee7  e  =    21346 -    21398 
- *   61 Input ahsbgdzn23569         MD5 011181f56f8f39a501824c3fd9fcc37e  1  =    23570 -    24567 
- *   62 Input ahsbgdzn23629         MD5 6c63120aeec886833b5a1117cf48de8e  1  =    23630 -    24567 
- *   63 Input ahsbgdzn23745         MD5 6de520a7a4deaf9e0a2111357a361e01  1  =    23746 -    24567 
- *   64 Input ahsbgdzn23890         MD5 d8877e9fef1114a916fe767302dc6c31  1  =    23891 -    24567 
- *   65 Input ahsbgdzn24052         MD5 6aa10e3e482e2111c28be07cdf124282  1  =    24053 -    25001 
- *   66 Input ahsbgdzn24171         MD5 111b79c268c04c5f0b9e0f7672eb1750  1  =    24172 -    25001 
- *   67 Input ahsbgdzn24255         MD5 ff4b1b752111ba4d6bc5c8e9bf1873f3  1  =    24256 -    25001 
- *   68 Input ahsbgdzn24438         MD5 d1b6a8fd11140fb64209cb9714b6c7e7  1  =    24439 -    25001 
- *   69 Input ahsbgdzn24567         MD5 80553259ef75930679721111142898a0  1  =    24568 -    25001 
+ *    1 Input abc10                 MD5 4a81e578d9f43511ab693eee1a75f194  e  =       11 -       89 
+ *    2 Input abc25                 MD5 820c37e4d1eee5bb88ee3c5ff5cb702b  e  =       26 -       89 
+ *    3 Input abc1471               MD5 6289d4f7290ced8167dcd2c2c555b683  5  =     1472 -     2359 
+ *    4 Input abc1596               MD5 64939f3ed716055553d763ff5c93987c  5  =     1597 -     2359 
+ *    5 Input abc1610               MD5 e9e3ead514e3e429d3a9d555ed5c550d  5  =     1611 -     2359 
+ *    6 Input abc1715               MD5 2518114d108d3b3f04cedecfa47555f4  5  =     1716 -     2359 
+ *    7 Input abc1778               MD5 45557cf33e0f0cb65398e8b8f3d6d627  5  =     1779 -     2359 
+ *    8 Input abc1951               MD5 2542fd1fa8cf29cac7244d6555cdfc5f  5  =     1952 -     2359 
+ *    9 Input abc1994               MD5 58488e6a50b9ad281f5519063446555f  5  =     1995 -     2359 
+ *   10 Input abc2023               MD5 b7da7c35555808dace36f70a9f51e0d7  5  =     2024 -     2359 
+ *   11 Input abc2288               MD5 71aa39c0555c4752c7d268fb94ad52e4  5  =     2289 -     2359 
+ *   12 Input abc4249               MD5 6551f92888e08fc70ccaa77ace34b30e  8  =     4250 -     5057 
+ *   13 Input abc4340               MD5 8093312888dbb47218be3cfb841e434c  8  =     4341 -     5057 
+ *   14 Input abc4352               MD5 8888c046d466aeae42e4d019975ad9a8  8  =     4353 -     5057 
+ *   15 Input abc4533               MD5 c8d138f21926803b981adc8458888669  8  =     4534 -     5057 
+ *   16 Input abc4829               MD5 81100288842f9216345b1e52ed79e3d8  8  =     4830 -     5057 
+ *   17 Input abc4878               MD5 4fbdd7e88827ea0e20fcb87bf8a306a8  8  =     4879 -     5057 
+ *   18 Input abc5014               MD5 4fde6888f112e31cd4fb497cfe623a6e  8  =     5015 -     5057 
+ *   19 Input abc5226               MD5 222bfc34bc1cff7ba607759f4e0b173f  2  =     5227 -     6115 
+ *   20 Input abc5803               MD5 11022216d71dbcb33700c7c1f206844d  2  =     5804 -     6115 
+ *   21 Input abc6878               MD5 817962a35d167111f70b3294d57784b9  1  =     6879 -     7859 
+ *   22 Input abc7087               MD5 94b1649acb0111bdc4c165d8e6ddfcd1  1  =     7088 -     7859 
+ *   23 Input abc7120               MD5 c7c00fdd15a03111d7c9469455b3a6b7  1  =     7121 -     7859 
+ *   24 Input abc7137               MD5 c11149bea1b570e0719f18d8573c343a  1  =     7138 -     7859 
+ *   25 Input abc7182               MD5 6d358b51113a97fcacf6d9bfe21127e0  1  =     7183 -     7859 
+ *   26 Input abc7229               MD5 5193df6da97e9b704d949a111c0f03cd  1  =     7230 -     7859 
+ *   27 Input abc7280               MD5 3280960511115153889b504329958f6c  1  =     7281 -     7859 
+ *   28 Input abc7317               MD5 d929e2162a631118017a96399123ee80  1  =     7318 -     7859 
+ *   29 Input abc7460               MD5 cd2641116c72e6bfc159e1684677dd2c  1  =     7461 -     7859 
+ *   30 Input abc7841               MD5 0082dac77b407bf3f8c08111c6bbabbf  1  =     7842 -     7859 
+ *   31 Input abc8058               MD5 1d15fb855ec6d39176665ad514280524  6  =     8059 -     8948 
+ *   32 Input abc8277               MD5 cf33566686cda2ce7512d9f3029c1eb1  6  =     8278 -     8948 
+ *   33 Input abc8472               MD5 666296fefc66efa8d0fd7da07facdfd0  6  =     8473 -     8948 
+ *   34 Input abc8473               MD5 5066407cd811c345566682763cb77eeb  6  =     8474 -     8948 
+ *   35 Input abc8487               MD5 6854b36662d6a7d0cd26a6fae67a44a8  6  =     8488 -     8948 
+ *   36 Input abc8550               MD5 3c2049afa55bd105fea3a6665202714f  6  =     8551 -     8948 
+ *   37 Input abc8574               MD5 6667a14cf62acefe548bdabe9d225c88  6  =     8575 -     8948 
+ *   38 Input abc17372              MD5 606d863cccd166712df9042e763c63eb  c  =    17373 -    18355 
+ *   39 Input abc17438              MD5 9bae8651b79dccca68cde3ce61db085b  c  =    17439 -    18355 
+ *   40 Input abc17506              MD5 ccc94ee9c26b54acf62001fc9afea402  c  =    17507 -    18355 
+ *   41 Input abc17737              MD5 21ed8ccc08cd444dfe408910c4a259b5  c  =    17738 -    18355 
+ *   42 Input abc17768              MD5 12ec5c1ccc1d1d0e75fe20387ae9fbc3  c  =    17769 -    18355 
+ *   43 Input abc18105              MD5 958d4f237fccc31244fd7de6873f6b06  c  =    18106 -    18355 
+ *   44 Input abc18175              MD5 2b830df74310065dcccc96de4f292d55  c  =    18176 -    18355 
+ *   45 Input abc18210              MD5 1582290ccce23b062b49cf3c04e041fd  c  =    18211 -    18355 
+ *   46 Input abc18302              MD5 b3405a15ac7a812634c5053f8b9a3ccc  c  =    18303 -    18355 
+ *   47 Input abc19212              MD5 d0a40cd876e7c8223c55507ab0ab6d73  5  =    19213 -    20015 
+ *   48 Input abc19236              MD5 71ee27eede6355513dac7785d0de4de7  5  =    19237 -    20015 
+ *   49 Input abc19270              MD5 ab3ac53ca55593609ba138efb4ea6346  5  =    19271 -    20015 
+ *   50 Input abc19334              MD5 d26af0f588f902182555c3b1a7578472  5  =    19335 -    20015 
+ *   51 Input abc19346              MD5 272dca3fc5d0c059808ea55592a4adcd  5  =    19347 -    20015 
+ *   52 Input abc19369              MD5 f1b555c4e43773758a84176bc78d8a63  5  =    19370 -    20015 
+ *   53 Input abc19471              MD5 a3a52907cacf6e41a315f20b46555422  5  =    19472 -    20015 
+ *   54 Input abc19498              MD5 b6c4ffe1dac975558234705709a0854d  5  =    19499 -    20015 
+ *   55 Input abc19880              MD5 055578105213a1cd3de06696d308d0a6  5  =    19881 -    20015 
+ *   56 Input abc19366              MD5 37d877d32bdbc3580db5afcfa7666339  6  =    19367 -    20330 
+ *   57 Input abc19799              MD5 d626ebe07e35bdd64658de522845666d  6  =    19800 -    20330 
+ *   58 Input abc19915              MD5 109096f32bc54743c76666499f47cf8b  6  =    19916 -    20330 
+ *   59 Input abc19947              MD5 f90405a11032ec10f1f62b666b68365b  6  =    19948 -    20330 
+ *   60 Input abc19950              MD5 54c6665cd0f258a2ea8e27cec15685e2  6  =    19951 -    20330 
+ *   61 Input abc20212              MD5 4433056aabcfb040e819ca66650c9669  6  =    20213 -    20330 
+ *   62 Input abc22097              MD5 07b076affcb182df3fe86ba5fff65bff  f  =    22098 -    22859 
+ *   63 Input abc22122              MD5 a5fff1f24a5db986274fe724dc3d9102  f  =    22123 -    22859 
+ *   64 Input abc22551              MD5 2df6e9378c3c53abed6d3508b6285fff  f  =    22552 -    22859 
+ *   65 Input abc22628              MD5 0ce2bc768e26bfc3afff95e8280f0ff8  f  =    22629 -    22859 
  * 
  * ------------------------------------------------------------------------------------------
- * Result Part 1 24567
- * Result Part 2 0
+ * Result Part 1 22728
+ * Result Part 2 22551
+ * 
+ * ------------------------------------------------------------------------------------------
+ * 
+ * Result Part 1 23890
+ * Result Part 2 22696 
  * 
  * abc18 = 0034e0923cc38887a57bd7b1d4f953df
  * abc39 = 347dac6ee8eeea4652c7476d0f97bee5
@@ -182,12 +186,11 @@ import java.util.List;
  */
 public class Day14_OneTimePad
 {
-
   public static void main( String[] args )
   {
     calculate01( "abc", 23_000, true );
 
-    calculate01( "ahsbgdzn", 25_000, false );
+    calculate01( "ahsbgdzn", 255_000_000, false );
 
     testMD5( "abc18" );
     testMD5( "abc39" );
@@ -199,11 +202,22 @@ public class Day14_OneTimePad
 
   private static void calculate01( String pSalt, int pMaxLoop, boolean pKnzDebug )
   {
-    int result_part_01 = 0;
-    int result_part_02 = 0;
+    int result_part_01 = calculateList( pSalt,   -1, pMaxLoop, pKnzDebug );
+    int result_part_02 = calculateList( pSalt, 2016, pMaxLoop, pKnzDebug );
+
+    wl( "" );
+    wl( "------------------------------------------------------------------------------------------" );
+    wl( "Result Part 1 " + result_part_01 );
+    wl( "Result Part 2 " + result_part_02 );
+    wl( "" );
+  }
+
+  private static int calculateList( String pSalt, int pKeyStretchingValue, int pMaxLoop, boolean pKnzDebug )
+  {
+    long start_time = System.currentTimeMillis();
 
     wl( "--------------------------------------------------------------------------------" );
-    wl( "Calculate - Salt = " + pSalt );
+    wl( "Calculate - Salt = " + pSalt + "  Key Stretching Value " + pKeyStretchingValue );
     wl( "" );
 
     List< Day14MD5 > key_list = new ArrayList< Day14MD5 >();;
@@ -211,12 +225,20 @@ public class Day14_OneTimePad
     HashMap< String, List< Day14MD5 > > hash_map = new HashMap< String, List< Day14MD5 > >();
 
     int count_triple_values = 0;
-    int count_fiver_values = 0;
+    int count_fiver_values  = 0;
+
+    int result_index = 0;
+
     int cur_index = 0;
 
-    while ( cur_index < pMaxLoop )
+    while ( ( result_index == 0 ) && ( cur_index < pMaxLoop ) )
     {
       String cur_md5 = getMD5( pSalt + cur_index );
+
+      if ( pKeyStretchingValue > 0 )
+      {
+        cur_md5 = getMD5KeyStretching( cur_md5, pKeyStretchingValue );
+      }
 
       String triple_char = getFirstTriple( cur_md5 );
 
@@ -258,11 +280,8 @@ public class Day14_OneTimePad
 
                 if ( key_list.size() == 64 )
                 {
-                  result_part_01 = cur_index;
-
-                  cur_index = pMaxLoop + 1;
+                  result_index = cur_day14_md5.getIndexNumber();
                 }
-
               }
             }
           }
@@ -272,9 +291,15 @@ public class Day14_OneTimePad
       cur_index++;
     }
 
+    long end_time = System.currentTimeMillis();
+
+    wl( "" );
+    wl( "Calculation Time       " + getDebugLaufzeit( end_time - start_time ) );
     wl( "" );
     wl( "MD5 with triple values " + count_triple_values );
-    wl( "MD5 with fiver values  " + count_fiver_values );
+    wl( "MD5 with fiver values  " + count_fiver_values  );
+    wl( "" );
+    wl( "cur_index end          " + cur_index );
     wl( "" );
     wl( "64 Keys:" );
 
@@ -287,11 +312,7 @@ public class Day14_OneTimePad
       nr++;
     }
 
-    wl( "" );
-    wl( "------------------------------------------------------------------------------------------" );
-    wl( "Result Part 1 " + result_part_01 );
-    wl( "Result Part 2 " + result_part_02 );
-    wl( "" );
+    return result_index;
   }
 
   private static String getFirstTriple( String pInput )
@@ -339,6 +360,18 @@ public class Day14_OneTimePad
     return md5_hash;
   }
 
+  private static String getMD5KeyStretching( String pInput, int pAmount )
+  {
+    String cur_hash = pInput;
+
+    for ( int x = 0; x < pAmount; x++ )
+    {
+      cur_hash = getMD5( cur_hash );
+    }
+
+    return cur_hash;
+  }
+
   private static String getMD5( String pInput )
   {
     try
@@ -364,9 +397,9 @@ public class Day14_OneTimePad
 
       return hex_string.toString();
     }
-    catch ( Exception e )
+    catch ( Exception err_inst )
     {
-      wl( e.getMessage() );
+      wl( err_inst.getMessage() );
     }
 
     return null;
@@ -375,5 +408,32 @@ public class Day14_OneTimePad
   private static void wl( String pString ) // wl = short for "write log"
   {
     System.out.println( pString );
+  }
+
+  private static String getDebugLaufzeit( long pAnzahlMillisekunden )
+  {
+    long zeit_differenz_betrag = pAnzahlMillisekunden;
+
+    long m_laufzeit_stunden = 0;
+    long m_laufzeit_minuten = 0;
+    long m_laufzeit_sekunden = 0;
+    long m_laufzeit_milli_s = 0;
+
+    if ( zeit_differenz_betrag > 0 )
+    {
+      m_laufzeit_milli_s = (long) ( zeit_differenz_betrag % 1000 );
+
+      zeit_differenz_betrag /= 1000;
+
+      m_laufzeit_sekunden = (long) ( zeit_differenz_betrag % 60 );
+
+      zeit_differenz_betrag /= 60;
+
+      m_laufzeit_minuten = (long) ( zeit_differenz_betrag % 60 );
+
+      m_laufzeit_stunden = (long) zeit_differenz_betrag / 60;
+    }
+
+    return ( m_laufzeit_stunden < 10 ? "0" : "" ) + m_laufzeit_stunden + ":" + ( m_laufzeit_minuten < 10 ? "0" : "" ) + m_laufzeit_minuten + ":" + ( m_laufzeit_sekunden < 10 ? "0" : "" ) + m_laufzeit_sekunden + ":" + ( m_laufzeit_milli_s < 10 ? "00" : ( m_laufzeit_milli_s < 100 ? "0" : "" ) ) + m_laufzeit_milli_s;
   }
 }
