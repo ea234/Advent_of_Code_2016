@@ -94,7 +94,7 @@ import java.util.List;
  * Calculate - Salt = abc  Key Stretching Value 2016
  * 
  * 
- * Calculation Time 00:00:20:453
+ * Calculation Time 00:00:17:786
  * 
  * MD5 with triple values 2386
  * MD5 with fiver values  10
@@ -225,7 +225,7 @@ public class Day14_OneTimePad
     HashMap< String, List< Day14MD5 > > hash_map = new HashMap< String, List< Day14MD5 > >();
 
     int count_triple_values = 0;
-    int count_fiver_values  = 0;
+    int count_fiver_values = 0;
 
     int result_index = 0;
 
@@ -233,28 +233,44 @@ public class Day14_OneTimePad
 
     while ( ( result_index == 0 ) && ( cur_index < pMaxLoop ) )
     {
+      /*
+       * Get the MD5-Hash for the current input
+       */
       String cur_md5 = getMD5( pSalt + cur_index );
 
+      /*
+       * If the "Key-Stretching"-Value is greater than 0, 
+       * do the Key-Stretching.
+       */
       if ( pKeyStretchingValue > 0 )
       {
         cur_md5 = getMD5KeyStretching( cur_md5, pKeyStretchingValue );
       }
 
+      /*
+       * Try to get the first triple character
+       */
       String triple_char = getFirstTriple( cur_md5 );
 
-      String all_five = getAllFive( cur_md5 );
-
+      /*
+       * Check, wether there is a triple character string 
+       */
       if ( triple_char != null )
       {
+        /*
+         * Increase the counter for triple characters
+         */
         count_triple_values++;
 
-        if ( pKnzDebug )
-        {
-          //wl( String.format( "Index %7d  %-15s = %s  = %s  %s ", cur_triple_count, pSalt + cur_index, cur_md5, triple_char, all_five ) );
-        }
-
+        /*
+         * Get the list for the triple-character from the hashmap
+         */
         List< Day14MD5 > list_triple_char = hash_map.get( triple_char );
 
+        /*
+         * Check, wether there is already a list for the triple-character.
+         * If not, a new list is created and stored in the hash-map.
+         */
         if ( list_triple_char == null )
         {
           list_triple_char = new ArrayList< Day14MD5 >();
@@ -262,28 +278,129 @@ public class Day14_OneTimePad
           hash_map.put( triple_char, list_triple_char );
         }
 
+        /*
+         * Add the new found MD5-Hash to the list.
+         */
         list_triple_char.add( new Day14MD5( cur_index, pSalt + cur_index, cur_md5, triple_char ) );
 
+        /*
+         * Get the string for all 5-character letters
+         */
+        String all_five = getAllFive( cur_md5 );
+
+        /*
+         * Check, wether there was a 5-character letter found
+         */
         if ( all_five != null )
         {
+          //wl( String.format( "5er Index %7d  %-15s = %s  = %s  %s ", count_triple_values, pSalt + cur_index, cur_md5, triple_char, all_five ) );
+
+          /*
+           * Increase the counter for "fiver"-characters
+           */
           count_fiver_values++;
 
+          /*
+           * Slightly wrong:
+           * The found five-character-string is only checked against
+           * the triple-character-list from above.
+           * 
+           * It should checked against all triple-hash-values.
+           * 
+           * ... what a piece of luck
+           * 
+           * List of all fiver-character hashes: (the last column is the all_five-string)
+           * 
+           * 5er Index      21  abc200          = 83501e9109999965af11270ef8d61a4f  = 9  9 
+           * 5er Index      74  abc792          = d3037333338c0e36482facef46a5d375  = 3  3 
+           * 5er Index      76  abc816          = 3aeeeee1367614f3061d165a5fe3cac3  = e  e 
+           * 5er Index     114  abc1261         = edd652be33204a7a544444d3c722fc01  = 4  4 
+           * 5er Index     630  abc6392         = 5b67f4fddddd4715225d90a48d64ad3f  = d  d 
+           * 5er Index     873  abc8735         = 33700000d206321cabda144e627f9c58  = 0  0 
+           * 5er Index     879  abc8811         = c3d313e7a72ea2111114dd4963979596  = 1  1 
+           * 5er Index     948  abc9562         = b5dd0c7468236111114393c27c5240a0  = 1  1 
+           * 5er Index    1373  abc13886        = 72cac2742bbbbbe00b99a814c73ff80e  = b  b 
+           * 5er Index    1669  abc16672        = 614079777771bb3be988406f8f346f83  = 7  7 
+           * 5er Index    2109  abc20994        = 4a31aaaaad6e0a6dc6c5911f2fef2321  = a  a 
+           * 5er Index    2315  abc22804        = 1e15d83ba7591b79ccccc2e9a22f78b8  = c  c 
+           * 
+           * 5er Index       5  abc89           = eaa5c17bec47565b98275b404eeeeea6  = e  e 
+           * 5er Index     250  abc2359         = 4fed3fd7229e0375139e313f555554d5  = 5  5 
+           * 5er Index     531  abc5057         = c763e3dc681483e4888882d4e01a67b6  = 8  8 
+           * 5er Index     628  abc6115         = a52222258913ae7224fe217fc333cb40  = 2  2 
+           * 5er Index     820  abc7859         = 5911d278942461111175d67ea80b619e  = 1  1 
+           * 5er Index     947  abc8948         = 00d272f8666666e368c964eed8a5f18c  = 6  66 
+           * 5er Index    1910  abc18355        = 3cccccf58c3a6a3ced39155cda9253bf  = c  c 
+           * 5er Index    2098  abc20015        = 52ff1eae704f55555dec14f8e5040b73  = 5  5 
+           * 5er Index    2130  abc20330        = 39ed4edb214e59811d03ce3666669533  = 6  6 
+           * 5er Index    2386  abc22859        = 2e559978fffff9ac9c9012eb764c6391  = f  f 
+           * 
+           * 5er Index      45  ahsbgdzn380     = d04fd7d90bc733333b1ca4742a83f3bd  = 3  3 
+           * 5er Index    1005  ahsbgdzn9888    = e0b9b7b7951b255c7f6df4e111113dc1  = 1  1 
+           * 5er Index    1096  ahsbgdzn10729   = 34c96b45a545ca9c6dbb95555590dbad  = 5  5 
+           * 5er Index    1110  ahsbgdzn10866   = 93deae906fe2bd4117018f6ddddd89da  = d  d 
+           * 5er Index    1143  ahsbgdzn11102   = 644444ba89f052ce6090fb26b3593d6b  = 4  4 
+           * 5er Index    1154  ahsbgdzn11182   = 95d8d2d963a9e1ae222226453fc32836  = 2  2 
+           * 5er Index    1464  ahsbgdzn14055   = 660d5b17cd2610e499999b870052c927  = 9  9 
+           * 5er Index    2247  ahsbgdzn21398   = a74bd59318aa0a19212409eeeee62863  = e  e 
+           * 5er Index    2582  ahsbgdzn24567   = 80553259ef75930679721111142898a0  = 1  1 
+           * 
+           * 5er Index      85  ahsbgdzn831     = 183810a02aa2dccccc0284569eccff7f  = c  c 
+           * 5er Index     406  ahsbgdzn3963    = d99999ddb593780f347f270ab1a8c937  = 9  9 
+           * 5er Index     449  ahsbgdzn4432    = 2965b04974b44cd44444ab72773d7899  = 4  4 
+           * 5er Index    1087  ahsbgdzn10037   = cc65a9e9d58433333cd5c305708a5407  = 3  3 
+           * 5er Index    1109  ahsbgdzn10217   = 947122d76cc62bf44444d4ffe88d84c8  = 4  4 
+           * 5er Index    1135  ahsbgdzn10496   = d688262633aedc9555554b18c4b6da3d  = 5  5 
+           * 5er Index    1613  ahsbgdzn15234   = e0f77777f85295f27104dfdb4cbc4685  = 7  7 
+           * 5er Index    1722  ahsbgdzn16166   = 5681df941d75a03ccccc1080a04d3caa  = c  c 
+           * 5er Index    1874  ahsbgdzn17524   = 602436c241cc777772f6c11e696c5dc6  = 7  7 
+           * 5er Index    1973  ahsbgdzn18538   = 01a6942a6823eeeee1c232c312d4da45  = e  e 
+           * 5er Index    2314  ahsbgdzn21718   = 91db4866a2ccccc4aafdb9aa7816a211  = c  c 
+           * 5er Index    2488  ahsbgdzn23411   = e0f82463c126d8a47b81bbbbb3f5f3af  = b  b 
+           * 
+           * 
+           */
           for ( Day14MD5 cur_day14_md5 : list_triple_char )
           {
+            /*
+             * Check, wether the MD5-Instance is active.
+             * Means, that its in the range from 0 to 1000, since it occured
+             */
             if ( cur_day14_md5.checkActive( cur_index ) )
             {
+              /*
+               * Check, if the triple-char is in the fiver-string
+               */
               if ( cur_day14_md5.checkTripleChar( all_five ) )
               {
+                /*
+                 * Set the top-number to the current index.
+                 * So next time it isnt active.
+                 */
                 cur_day14_md5.setNumberTo( cur_index );
 
+                /*
+                 * Add the instance to the result list 
+                 */
                 key_list.add( cur_day14_md5 );
 
+                /*
+                 * Check, wether there are 64 instances in the result list
+                 */
                 if ( key_list.size() == 64 )
                 {
                   result_index = cur_day14_md5.getIndexNumber();
                 }
               }
             }
+          }
+
+          /*
+           * Do some debug-stuff
+           */
+          if ( pKnzDebug )
+          {
+            //wl( String.format( "Index %7d  %-15s = %s  = %s  %s ", count_triple_values, pSalt + cur_index, cur_md5, triple_char, all_five ) );
           }
         }
       }
@@ -294,10 +411,8 @@ public class Day14_OneTimePad
     long end_time = System.currentTimeMillis();
 
     wl( "" );
-    wl( "Calculation Time       " + getDebugLaufzeit( end_time - start_time ) );
-    wl( "" );
     wl( "MD5 with triple values " + count_triple_values );
-    wl( "MD5 with fiver values  " + count_fiver_values  );
+    wl( "MD5 with fiver values  " + count_fiver_values );
     wl( "" );
     wl( "cur_index end          " + cur_index );
     wl( "" );
@@ -311,6 +426,10 @@ public class Day14_OneTimePad
 
       nr++;
     }
+
+    wl( "" );
+    wl( "Calculation Time " + getDebugLaufzeit( end_time - start_time ) );
+    wl( "" );
 
     return result_index;
   }
@@ -334,9 +453,9 @@ public class Day14_OneTimePad
 
     for ( int idx = 4; idx < pInput.length(); idx++ )
     {
-      if ( ( pInput.charAt( idx ) == pInput.charAt( idx - 1 ) ) && ( pInput.charAt( idx ) == pInput.charAt( idx - 2 ) ) )
+      if ( ( pInput.charAt( idx ) == pInput.charAt( idx - 4 ) ) )
       {
-        if ( ( pInput.charAt( idx ) == pInput.charAt( idx - 3 ) ) && ( pInput.charAt( idx ) == pInput.charAt( idx - 4 ) ) )
+        if ( ( pInput.charAt( idx ) == pInput.charAt( idx - 3 ) ) && ( pInput.charAt( idx ) == pInput.charAt( idx - 2 ) ) && ( pInput.charAt( idx ) == pInput.charAt( idx - 1 ) ) )
         {
           if ( str_result_5er == null )
           {
