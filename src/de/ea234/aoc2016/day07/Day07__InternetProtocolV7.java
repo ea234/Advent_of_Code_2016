@@ -115,7 +115,7 @@ public class Day07__InternetProtocolV7
     wl( "" );
   }
 
-  public static int checkTransportLayerSnoopingSupport( String pInput )
+  private static int checkTransportLayerSnoopingSupport( String pInput )
   {
     if ( pInput.isBlank() ) return 0;
 
@@ -169,7 +169,7 @@ public class Day07__InternetProtocolV7
     return supports_tls;
   }
 
-  public static int checkSuperSecretListiningSupport( String pInput )
+  private static int checkSuperSecretListiningSupport( String pInput )
   {
     if ( pInput.isBlank() ) return 0;
 
