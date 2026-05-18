@@ -42,7 +42,6 @@ import java.util.stream.Collectors;
  * result length = 110
  * 
  * Result Part 1 38
- * Result Part 2 0
  * 
  * 
  * ----------------------------------------------------------------------
@@ -96,16 +95,24 @@ import java.util.stream.Collectors;
  * 
  * Grid size     = 4920
  * 
- * 
  * result length = 4960
  * 
  * Result Part 1 2447
- * Result Part 2 0
  * 
  * 
+ * ----------------------------------------------------------------------
+ * PART 2
  * 
+ * Tiles Safe    = 20005203
+ * Tiles Trap    = 19994797
+ * Sum           = 40000000
  * 
+ * generate rows = 400000
+ * pInput length = 100
  * 
+ * Grid size     = 40000000
+ * 
+ * Result Part 2 20005203
  * 
  * </pre> 
  */
@@ -121,16 +128,17 @@ public class Day18_LikeARogue
     
     calculate01( "...^^^^^..^...^...^.^.^.^^.^^^...^^^^^...^.^^^.^.^.^^.^^^.....^.^^^...^^^^^^.....^.^^...^^^^^...^.^...^.^^..^^.^^......^^^^", 40, true );
     
+    calculate02( "...^^^^^..^...^...^.^.^.^^.^^^...^^^^^...^.^^^.^.^.^^.^^^.....^.^^^...^^^^^^.....^.^^...^^^^^...^.^...^.^^..^^.^^......^^^^", 400000, true );
+    
     System.exit( 0 );
   }
-
+  
   private static void calculate01( String pInput, int pRowsToGenerate, boolean pKnzDebug )
   {
     wl( "" );
     wl( "----------------------------------------------------------------------" );
 
     int result_part_01 = 0;
-    int result_part_02 = 0;
 
     String prev_row_str = pInput;
 
@@ -164,10 +172,66 @@ public class Day18_LikeARogue
     wl( "" );
     wl( "Grid size     = " + ( generate_rows * pInput.length() ) );
     wl( "" );
-    wl( "" );
     wl( "result length = " + result_string.length() );
     wl( "" );
     wl( "Result Part 1 " + result_part_01 );
+    wl( "" );
+  }  
+  
+  private static void calculate02( String pInput, int pRowsToGenerate, boolean pKnzDebug )
+  {
+    wl( "" );
+    wl( "----------------------------------------------------------------------" );
+
+    int result_part_02 = 0;
+
+    String prev_row_str = pInput;
+
+    String result_string = prev_row_str + "\n";
+
+    int generate_rows = pRowsToGenerate;
+    
+    int length = pInput.length();
+    
+    int tiles_safe = countTiles( result_string, CHAR_SAFE );
+    int tiles_trap = countTiles( result_string, CHAR_TRAP );
+
+    for ( int cur_row_nr = 1; cur_row_nr < generate_rows; cur_row_nr++ )
+    {
+      char c_left = CHAR_SAFE;
+
+      char c_center = prev_row_str.charAt( 0 );
+      
+      String res_string = "";
+
+      for ( int idx = 0; idx < length; idx++ )
+      {
+        char c_right = ( ( idx + 1 ) == length ? CHAR_SAFE : prev_row_str.charAt( idx + 1 ) );
+
+             if ( ( c_left == CHAR_SAFE ) && ( c_center == CHAR_SAFE ) && ( c_right == CHAR_TRAP ) ) { res_string += CHAR_TRAP; tiles_trap++; }
+        else if ( ( c_left == CHAR_SAFE ) && ( c_center == CHAR_TRAP ) && ( c_right == CHAR_TRAP ) ) { res_string += CHAR_TRAP; tiles_trap++; }
+        else if ( ( c_left == CHAR_TRAP ) && ( c_center == CHAR_SAFE ) && ( c_right == CHAR_SAFE ) ) { res_string += CHAR_TRAP; tiles_trap++; }
+        else if ( ( c_left == CHAR_TRAP ) && ( c_center == CHAR_TRAP ) && ( c_right == CHAR_SAFE ) ) { res_string += CHAR_TRAP; tiles_trap++; }
+        else                                                                                         { res_string += CHAR_SAFE; tiles_safe++; }
+
+        c_left = c_center;
+        c_center = c_right;
+      }
+
+      prev_row_str = res_string;
+    }
+
+    result_part_02 = tiles_safe;
+
+    wl( "Tiles Safe    = " + tiles_safe );
+    wl( "Tiles Trap    = " + tiles_trap );
+    wl( "Sum           = " + ( tiles_safe + tiles_trap ) );
+    wl( "" );
+    wl( "generate rows = " + generate_rows );
+    wl( "pInput length = " + pInput.length() );
+    wl( "" );
+    wl( "Grid size     = " + ( generate_rows * pInput.length() ) );
+    wl( "" );
     wl( "Result Part 2 " + result_part_02 );
     wl( "" );
   }
@@ -195,6 +259,7 @@ public class Day18_LikeARogue
        * tst = 101 = 5 = SAFE
        * tts = 110 = 6 = TRAP = Its left and center tiles are traps, but its right tile is not.
        * ttt = 111 = 7 = SAFE
+       * 
        */
            if ( ( c_left == CHAR_SAFE ) && ( c_center == CHAR_SAFE ) && ( c_right == CHAR_TRAP ) ) { res_string += CHAR_TRAP; }
       else if ( ( c_left == CHAR_SAFE ) && ( c_center == CHAR_TRAP ) && ( c_right == CHAR_TRAP ) ) { res_string += CHAR_TRAP; }
