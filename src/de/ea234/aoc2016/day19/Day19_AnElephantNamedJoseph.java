@@ -125,7 +125,7 @@ public class Day19_AnElephantNamedJoseph
   private static void calculate01( int pNumberOfElves, boolean pKnzDebug )
   {
     int result_part_01 = 0; //run01( pNumberOfElves, pKnzDebug );
-    int result_part_02 = run02( pNumberOfElves, pKnzDebug );
+    int result_part_02 = run02a( pNumberOfElves, pKnzDebug );
 
     wl( "" );
     wl( "------------------------------------------------------------------------------------------" );
@@ -144,7 +144,114 @@ public class Day19_AnElephantNamedJoseph
     return pIndex + 1;
   }
 
-  private static int run02( int pNumberOfElves, boolean pKnzDebug )
+  private static int run02a( int pNumberOfElves, boolean pKnzDebug )
+  {
+    int cur_nr_of_players = pNumberOfElves;
+
+    int[] elf_vector = new int[ pNumberOfElves ];
+
+    for ( int idx = 0; idx < pNumberOfElves; idx++ )
+    {
+      elf_vector[ idx ] = 1;
+    }
+
+    int elf_player = -1;
+    int elf_left = 0;
+
+    int knz_do_loop = 1;
+
+    int dbg_count_info = 0;
+
+    int dbg_count_loop_nr = 0;
+
+    while ( knz_do_loop == 1 )
+    {
+      dbg_count_loop_nr++;
+
+      dbg_count_info++;
+
+      if ( dbg_count_info > 5000 )
+      {
+        wl( dbg_count_loop_nr + " " + cur_nr_of_players );
+
+        dbg_count_info = 0;
+      }
+      /*
+       * go to the next player elf
+       */
+      elf_player = incIndex( elf_player, pNumberOfElves );
+
+      /*
+       * Check, wether the elf still has presents
+       */
+      if ( elf_vector[ elf_player ] > 0 )
+      {
+        int elf_start_list_index = elf_player; // getElfListIndex( elf_list, elf_to.getPlayerName() );
+
+        /*
+         * Get the middle of the players in the game
+         */
+        int elf_x = (int) ( cur_nr_of_players / 2 );
+
+        /*
+         * get the next elf with presents
+         */
+        elf_left = incIndex( elf_player, pNumberOfElves );
+
+        int elf_cnt_x = 0;
+
+        //while ( ( elf_vector[ elf_left ] == 0 ) && ( elf_cnt_x < elf_x ) )
+        while ( elf_cnt_x < elf_x )
+        {
+          elf_left = incIndex( elf_left, pNumberOfElves );
+
+          if ( elf_vector[ elf_left ] > 0 )
+          {
+            elf_cnt_x++;
+          }
+        }
+
+        /*
+         * Check, wether the found elf is itself
+         */
+        if ( elf_left == elf_player )
+        {
+          knz_do_loop = 0;
+        }
+        else
+        {
+          /*
+           * The player elf gets all the presents from the left elf
+           */
+          elf_vector[ elf_player ] += elf_vector[ elf_left ];
+
+          /*
+           * The left elf has no presents anymore
+           */
+          elf_vector[ elf_left ] = 0;
+
+          cur_nr_of_players--;
+
+          /*
+           * If the player elf has all the presents, end the loop
+           */
+          if ( elf_vector[ elf_player ] == pNumberOfElves )
+          {
+            knz_do_loop = 0;
+          }
+        }
+      }
+
+      if ( pKnzDebug )
+      {
+        wl( String.format( "Elf Player %4d %4d  %s ", elf_player, elf_left, Arrays.toString( elf_vector ) ) );
+      }
+    }
+
+    return elf_player + 1;
+  }
+
+  private static int run02b( int pNumberOfElves, boolean pKnzDebug )
   {
     List< Day19Player > elf_list = new ArrayList< Day19Player >();
 
