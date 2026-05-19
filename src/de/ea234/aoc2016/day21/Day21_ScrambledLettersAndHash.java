@@ -10,33 +10,13 @@ import java.util.stream.Collectors;
 /**
  * <pre>
  * 
- * --- Day 22: Grid Computing ---
+ * --- Day 21: Scrambled Letters and Hash ---
  * https://adventofcode.com/2016/day/21
  * 
  * https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/
  * 
- * ----------------------------------------------------------------------
- *  abcde  |  
- *  ebcda  |  swap position 4 with position 0
- *  edcba  |  swap letter d with letter b
- *  abcde  |  reverse positions 0 through 4
- *  bcdea  |  rotate left 1 step
- *  bdeac  |  move position 1 to position 4
- *  abdec  |  move position 3 to position 0
- *  ecabd  |  rotate based on position of letter b
- *  decab  |  rotate based on position of letter d
- * 
- * Result Part 1 decab
- * Result Part 2 0
- * 
  * ------------------------------------------------------------------------------------------
  * Result Part 1 aefgbcdh
- * Result Part 2 0
- * 
- * 
- * 
- * 
- * 
  * 
  * ----------------------------------------------------------------------
  * 0123456789 0823456719 CMD swap position 1 with position 8
@@ -71,9 +51,6 @@ import java.util.stream.Collectors;
  *  Input " A B C " To "C  A B " Back " A B C "  Equal  OK  CMD rotate right 2 step
  *  Input " A B C " To "  A B C" Back " A B C "  Equal  OK  CMD rotate right 8 step
  *  Input "0123456" To "4321056" Back "0123456"  Equal  OK  CMD reverse positions 0 through 4
- * Rotation Nr. 0    cabde
- * Rotation Nr. 1    abdec
- * Found Input abdec
  *  Input "abdec" To "ecabd" Back "abdec"  Equal  OK  CMD rotate based on position of letter b
  * 
  * Test rotate left
@@ -84,39 +61,66 @@ import java.util.stream.Collectors;
  * Rotation Nr 4    ecabd
  * 
  * ----------------------------------------------------------------------
- *  abcde  |  
- *  ebcda  |  swap position 4 with position 0
- *  edcba  |  swap letter d with letter b
- *  abcde  |  reverse positions 0 through 4
- *  bcdea  |  rotate left 1 step
- *  bdeac  |  move position 1 to position 4
- *  abdec  |  move position 3 to position 0
- *  ecabd  |  rotate based on position of letter b
- *  decab  |  rotate based on position of letter d
+ * Input abcde
+ * 
+ * NORMAL  abcde  |  
+ * NORMAL  ebcda  |  swap position 4 with position 0
+ * NORMAL  edcba  |  swap letter d with letter b
+ * NORMAL  abcde  |  reverse positions 0 through 4
+ * NORMAL  bcdea  |  rotate left 1 step
+ * NORMAL  bdeac  |  move position 1 to position 4
+ * NORMAL  abdec  |  move position 3 to position 0
+ * NORMAL  ecabd  |  rotate based on position of letter b
+ * NORMAL  decab  |  rotate based on position of letter d
  * 
  *        ----- Reverse ----
  * 
- *  decab  |  
- *  becad  |  swap position 4 with position 0
- *  decab  |  swap letter d with letter b
- *  baced  |  reverse positions 0 through 4
- *  dbace  |  rotate left 1 step
- *  debac  |  move position 1 to position 4
- *  ebadc  |  move position 3 to position 0
- * Rotation Nr. 0    badce
- * Found Input badce
- *  badce  |  rotate based on position of letter b
- * Rotation Nr. 0    adceb
- * Rotation Nr. 1    dceba
- * Rotation Nr. 2    cebad
- * Rotation Nr. 3    ebadc
- * Found Input ebadc
- *  ebadc  |  rotate based on position of letter d
+ * REVERSE ecabd  |  rotate based on position of letter d
+ * REVERSE abdec  |  rotate based on position of letter b
+ * REVERSE bdeac  |  move position 3 to position 0
+ * REVERSE bcdea  |  move position 1 to position 4
+ * REVERSE abcde  |  rotate left 1 step
+ * REVERSE edcba  |  reverse positions 0 through 4
+ * REVERSE ebcda  |  swap letter d with letter b
+ * REVERSE abcde  |  swap position 4 with position 0
+ * REVERSE abcde  |  
  * 
  * Result Part 1 decab
- * Result Part 2 ebadc
+ * Result Part 2 abcde
+ * 
+ * ----------------------------------------------------------------------
+ * Input decab
+ * 
+ * REVERSE ecabd  |  rotate based on position of letter d
+ * REVERSE abdec  |  rotate based on position of letter b
+ * REVERSE bdeac  |  move position 3 to position 0
+ * REVERSE bcdea  |  move position 1 to position 4
+ * REVERSE abcde  |  rotate left 1 step
+ * REVERSE edcba  |  reverse positions 0 through 4
+ * REVERSE ebcda  |  swap letter d with letter b
+ * REVERSE abcde  |  swap position 4 with position 0
+ * REVERSE abcde  |  
  * 
  * Result Part 2 abcde
+ * 
+ * 
+ * ----------------------------------------------------------------------
+ * Input fbgdceah
+ * 
+ * REVERSE fbgdecah  |  reverse positions 4 through 5
+ * REVERSE fbgedcah  |  reverse positions 3 through 4
+ * REVERSE fbdegcah  |  swap letter d with letter g
+ * REVERSE fbgedcah  |  swap position 2 with position 4
+ * REVERSE cahfbged  |  rotate right 5 steps
+ * ...
+ * REVERSE cahbfgde  |  move position 5 to position 4
+ * REVERSE cahbfged  |  reverse positions 6 through 7
+ * REVERSE cgahbfed  |  move position 1 to position 5
+ * REVERSE cdahbfeg  |  swap letter g with letter d
+ * REVERSE egcdahbf  |  rotate based on position of letter a
+ * 
+ * Result Part 2 egcdahbf
+ * 
  * 
  * </pre> 
  */
@@ -138,12 +142,14 @@ public class Day21_ScrambledLettersAndHash
     test_input += ",rotate based on position of letter d";
 
     calculatePart01( test_input, "abcde", true );
-//
-//    calculate01( getListProd(), "abcdefgh", false );
-
+    calculatePart02( test_input, "decab", true );
+    
+    //calculate01( getListProd(), "abcdefgh", false );
+    calculate02(  getListProd(), "fbgdceah", false );
+    
     System.exit( 0 );
   }
-
+  
   private static void calculatePart01( String pString, String pStart, boolean pKnzDebug )
   {
     List< String > converted_string_list = Arrays.stream( pString.split( "," ) ).map( String::trim ).collect( Collectors.toList() );
@@ -151,10 +157,19 @@ public class Day21_ScrambledLettersAndHash
     calculate01( converted_string_list, pStart, pKnzDebug );
   }
 
+  private static void calculatePart02( String pString, String pStart, boolean pKnzDebug )
+  {
+    List< String > converted_string_list = Arrays.stream( pString.split( "," ) ).map( String::trim ).collect( Collectors.toList() );
+
+    calculate02( converted_string_list, pStart, pKnzDebug );
+  }
+
   private static void calculate01( List< String > pListInput, String pStart, boolean pKnzDebug )
   {
     wl( "" );
     wl( "----------------------------------------------------------------------" );
+    wl( "Input " + pStart );
+    wl( "" );
 
     byte[] password = pStart.getBytes();
 
@@ -162,7 +177,7 @@ public class Day21_ScrambledLettersAndHash
     {
       doCmd( password, input_str );
 
-      wl( " " + ( new String( password ) ) + "  |  " + input_str );
+      wl( "NORMAL  " + ( new String( password ) ) + "  |  " + input_str );
     }
 
     String result_part_01 = new String( password );
@@ -171,11 +186,13 @@ public class Day21_ScrambledLettersAndHash
     wl( "       ----- Reverse ----" );
     wl( "" );
 
-    for ( String input_str : pListInput )
+    for ( int index = pListInput.size() - 1; index >= 0; index-- ) 
     {
+      String input_str = pListInput.get( index );
+        
       doCmdReverse( password, input_str );
 
-      wl( " " + ( new String( password ) ) + "  |  " + input_str );
+      wl( "REVERSE " + ( new String( password ) ) + "  |  " + input_str );
     }
 
     String result_part_02 = new String( password );
@@ -184,10 +201,34 @@ public class Day21_ScrambledLettersAndHash
     wl( "Result Part 1 " + result_part_01 );
     wl( "Result Part 2 " + result_part_02 );
     wl( "" );
-    wl( "Result Part 2 " + pStart );
+  }
+  
+  private static void calculate02( List< String > pListInput, String pStart, boolean pKnzDebug )
+  {
+    wl( "" );
+    wl( "----------------------------------------------------------------------" );
+    wl( "Input " + pStart );
+    wl( "" );
+
+    byte[] password = pStart.getBytes();
+
+    for ( int index = pListInput.size() - 1; index >= 0; index-- ) 
+    {
+      String input_str = pListInput.get( index );
+        
+      doCmdReverse( password, input_str );
+
+      wl( "REVERSE " + ( new String( password ) ) + "  |  " + input_str );
+    }
+
+    String result_part_02 = new String( password );
+
+    wl( "" );
+    wl( "Result Part 2 " + result_part_02 );
+    wl( "" );
     wl( "" );
   }
-
+  
   private static void test()
   {
     String test_input = "0123456789";
@@ -215,7 +256,7 @@ public class Day21_ScrambledLettersAndHash
 
     wl( "" );
     doTestCmdNormal( "bcdea", "move position 1 to position 4" );
-    doTestCmdNormal( "bdeac", "move position 3 to position 0" ); // abdec
+    doTestCmdNormal( "bdeac", "move position 3 to position 0" );
 
     wl( "" );
     doTestCmdNormal( "0123456789", "reverse positions 0 through 4" );
@@ -273,25 +314,6 @@ public class Day21_ScrambledLettersAndHash
   private static void doTestCmdReverse( String pString, String pCmd )
   {
     byte[] byte_array = pString.getBytes();
-
-    doCmd( byte_array, pCmd );
-
-    String result_forwad = new String( byte_array );
-
-    byte[] byte_array_reverse = result_forwad.getBytes();
-
-    doCmdReverse( byte_array_reverse, pCmd );
-
-    String result_reverse = new String( byte_array_reverse );
-
-    boolean knz_equal = pString.equals( result_reverse );
-
-    wl( " Input \"" + pString + "\" To \"" + result_forwad + "\" Back \"" + result_reverse + "\"  Equal " + ( knz_equal ? " OK " : "####" ) + " CMD " + pCmd );
-  }
-
-  private static void doTestCmd3( byte[] byte_array, String pCmd )
-  {
-    String pString = new String( byte_array );
 
     doCmd( byte_array, pCmd );
 
@@ -607,7 +629,7 @@ public class Day21_ScrambledLettersAndHash
     {
       String cur_input_restored = string_string.substring( start_idx, start_idx + len_input );
 
-      wl( "Rotation Nr. " + rot_nr + "    " + cur_input_restored );
+      //wl( "Rotation Nr. " + rot_nr + "    " + cur_input_restored );
 
       start_idx++;
 
@@ -649,7 +671,7 @@ public class Day21_ScrambledLettersAndHash
 
       if ( string_result_act.equals( string_result_to_be ) )
       {
-        wl( "Found Input " + cur_input_restored );
+        //wl( "Found Input " + cur_input_restored );
 
         byte[] byte_array_temp1 = cur_input_restored.getBytes();
 
@@ -675,6 +697,24 @@ public class Day21_ScrambledLettersAndHash
     if ( ( pIndex - 1 ) < 0 ) return pMaxIndex - 1;
 
     return pIndex - 1;
+  }
+
+  private static List< String > getListProd()
+  {
+    List< String > string_array = null;
+
+    String datei_input = "/mnt/hd4tbb/daten/zdownload/advent_of_code_2016__day21_input.txt";
+
+    try
+    {
+      string_array = Files.readAllLines( Path.of( datei_input ) );
+    }
+    catch ( IOException e )
+    {
+      e.printStackTrace();
+    }
+
+    return string_array;
   }
 
   private static void wl( String pString ) // wl = short for "write log"
