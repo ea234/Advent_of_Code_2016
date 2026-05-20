@@ -49,37 +49,44 @@ public class Day25_ClockSignal
   {
     String assembunny_src = "";
 
-    assembunny_src += "cpy a d";
-    assembunny_src += ",cpy 7 c";
-    assembunny_src += ",cpy 365 b";
-    assembunny_src += ",inc d";
-    assembunny_src += ",dec b";
-    assembunny_src += ",jnz b -2"; // b has to be 0
-    assembunny_src += ",dec c"; // c is decremented
-    assembunny_src += ",jnz c -5"; // 5 back to cpy 365 b = 7  
-    assembunny_src += ",cpy d a";
-    assembunny_src += ",jnz 0 0";
-    assembunny_src += ",cpy a b";
-    assembunny_src += ",cpy 0 a";
-    assembunny_src += ",cpy 2 c";
-    assembunny_src += ",jnz b 2"; // b has to be 0
-    assembunny_src += ",jnz 1 6";
-    assembunny_src += ",dec b";
-    assembunny_src += ",dec c";
-    assembunny_src += ",jnz c -4";
-    assembunny_src += ",inc a";
-    assembunny_src += ",jnz 1 -7";
-    assembunny_src += ",cpy 2 b";
-    assembunny_src += ",jnz c 2";
-    assembunny_src += ",jnz 1 4";
-    assembunny_src += ",dec b";
-    assembunny_src += ",dec c";
-    assembunny_src += ",jnz 1 -4";
-    assembunny_src += ",jnz 0 0";
-    assembunny_src += ",out b";
-    assembunny_src += ",jnz a -19";
-    assembunny_src += ",jnz 1 -21";
 
+    assembunny_src += " cpy a d    "; // 01 - copy value reg a to d
+    assembunny_src += ",cpy 7 c    "; // 02 - copy value     7 to c
+    assembunny_src += ",cpy 365 b  "; // 03 - copy value   365 to b
+    assembunny_src += ",inc d      "; // 04 - increment value reg d   (which initially has the value from a)
+    assembunny_src += ",dec b      "; // 05 - decrement value reg b   (which was initialized with 365)
+    assembunny_src += ",jnz b -2   "; // 06 - jump to instruction 04 if b is greater than 0
+    assembunny_src += ",dec c      "; // 07 - decrement value c       (which was initialized with 7)
+    assembunny_src += ",jnz c -5   "; // 08 - jump to instruction 03  (init registister b with 365)
+    
+    /*
+     * value reg c * value reg b = 7 * 365 (= 2555) to get the first block done 
+     */
+    
+    assembunny_src += ",cpy d a    "; // 09 - copy value d to a (init value a + 2555) 
+    
+    assembunny_src += ",jnz 0 0    "; // 10 - do nothing (just a nop, hiding in jnz 0 0)
+    assembunny_src += ",cpy a b    "; // 11
+    assembunny_src += ",cpy 0 a    "; // 12
+    assembunny_src += ",cpy 2 c    "; // 13
+    assembunny_src += ",jnz b 2    "; // 14
+    assembunny_src += ",jnz 1 6    "; // 15
+    assembunny_src += ",dec b      "; // 16
+    assembunny_src += ",dec c      "; // 17
+    assembunny_src += ",jnz c -4   "; // 18
+    assembunny_src += ",inc a      "; // 19
+    assembunny_src += ",jnz 1 -7   "; // 20
+    assembunny_src += ",cpy 2 b    "; // 21
+    assembunny_src += ",jnz c 2    "; // 22
+    assembunny_src += ",jnz 1 4    "; // 23 - jump to instruction 27 ... to out
+    assembunny_src += ",dec b      "; // 24
+    assembunny_src += ",dec c      "; // 25
+    assembunny_src += ",jnz 1 -4   "; // 26 - jump to instruction 22 (copy c to b)
+    assembunny_src += ",jnz 0 0    "; // 27 - do nothing
+    assembunny_src += ",out b      "; // 28 - trasmit value register b (this has to be 1 or 0)
+    assembunny_src += ",jnz a -19  "; // 29 - jump to instruction 10 if a is greater than 0
+    assembunny_src += ",jnz 1 -21  "; // 30 - jump to instruction  9  (copy d to a)
+    
     calculatePart01( assembunny_src, 2555, true );
 
     System.exit( 0 );
