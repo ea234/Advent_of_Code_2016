@@ -1,5 +1,13 @@
 package de.ea234.aoc2016;
 
+/*
+ * It should have been NerdkwaRtier
+ *             and not Nerdkwa tier
+ *
+ * ... don't worry, they will deal with it
+ *
+ */
+
 public class DecodingNerdkwatier
 {
   public static void main( String[] args )
