@@ -104,10 +104,10 @@ public class Day25_ClockSignal
 
     reg_c = 7;                          // ",cpy 7 c    "; // 02 - copy value     7 to c
 
-    reg_b = 365;                        // ",cpy 365 b  "; // 03 - copy value   365 to b
-
     while ( reg_c > 0 )                 // ",jnz c -5   "; // 08 - jump to instruction 03  (init registister b with 365)
     {
+      reg_b = 365;                      // ",cpy 365 b  "; // 03 - copy value   365 to b
+
       while ( reg_b > 0 )               // ",jnz b -2   "; // 06 - jump to instruction 04 if b is greater than 0
       {
         reg_d++;                        // ",inc d      "; // 04 - increment value reg d   (which initially has the value from a)
@@ -189,6 +189,114 @@ public class Day25_ClockSignal
 //    assembunny_src += ",jnz 1 -21  "; // 30 - jump to instruction  9  (copy d to a)
 
   }
+
+
+  private static void dissAssembunnySrcImproved()
+  {
+    int init_value_a = 2555;
+
+    /*
+     * Register D Value
+     * - Register D has the role of the inial-Value of a
+     * - Value D comprises of the init-value for a, and 7 * 365 (which is the loop)
+     * 
+     * - Shortcut for instructions 01 - 08
+     * 
+     *     reg_d = reg_a;               // " cpy a d    "; // 01 - copy value reg a to d
+     *     reg_c = 7;                   // ",cpy 7 c    "; // 02 - copy value     7 to c
+     * 
+     *     while ( reg_c > 0 )          // ",jnz c -5   "; // 08 - jump to instruction 03  (init registister b with 365)
+     *     {
+     *       reg_b = 365;               // ",cpy 365 b  "; // 03 - copy value   365 to b
+     * 
+     *       while ( reg_b > 0 )        // ",jnz b -2   "; // 06 - jump to instruction 04 if b is greater than 0
+     *       {
+     *         reg_d++;                 // ",inc d      "; // 04 - increment value reg d   (which initially has the value from a)
+     *         reg_b--;                 // ",dec b      "; // 05 - decrement value reg b   (which was initialized with 365)
+     *       }
+     * 
+     *       reg_c--;                   // ",dec c      "; // 07 - decrement value c       (which was initialized with 7)
+     *     }
+     */
+    int reg_c = 7;                      // ",cpy 7 c    "; // 02 - copy value     7 to c
+
+    int reg_b = 365;                    // ",cpy 365 b  "; // 03 - copy value   365 to b
+    
+    int reg_d_init_value_a = init_value_a + ( reg_c * reg_b );
+
+    /*
+     * The register value d is copied to register a
+     */
+
+    int reg_a = reg_d_init_value_a;     // ",cpy d a    "; // 09 - copy value d to a (init value a + 2555)
+
+    while ( reg_a > 0 )                 // ",jnz a -19  "; // 29 - jump to instruction 10 if a is greater than 0
+    {
+      /* do nothing */                  // ",jnz 0 0    "; // 10 - do nothing (just a nop, hiding in jnz 0 0)
+
+      /*
+       * reg_b is given the value from a
+       */
+      reg_b = reg_a;                    // ",cpy a b    "; // 11 - copy register value a to register b
+
+      /*
+       * reg a is set to 0
+       */
+      reg_a = 0;                        // ",cpy 0 a    "; // 12 - set register value a to 0
+
+      /*
+       * reg c is set to 2
+       */
+      reg_c = 2;                        // ",cpy 2 c    "; // 13 - set register vlaue c to 2
+
+      
+      while ( reg_b > 0 )               // ,jnz b 2    "; // 14 - if register value b > 0 jump to instruction 16
+      {
+        while ( reg_c > 0 )             // ",jnz 1 -7   "; // 20 - jump to instruction 14
+        {
+          reg_b--;                      // ",dec b      "; // 16
+
+          reg_c--;                      // ",dec c      "; // 17      
+        }
+        
+        reg_a++;                        // ",inc a      "; // 19 - increment register a
+      }
+
+      /*
+       *                                // 14 if register value b is 0 then do something
+       * 
+       * register value b = 0
+       * register value c = 0
+       * 
+       * register value a = 
+       * 
+       */
+
+      reg_b = 2;                        // ",cpy 2 b    "; // 21 - set register value b to 2 (register value b is 0 at this point)
+
+      if ( reg_c > 0 )                  // ",jnz c 2    "; // 22 - if register value c is greater than 0, do the loop
+      {
+        /*
+         * Decrement value b by the value of register value c
+         */
+        while ( reg_c > 0 )
+        {
+          reg_b--;                      // ",dec b      "; // 24 - decrement register value b
+          reg_c--;                      // ",dec c      "; // 25 - decrement register value c
+        }
+      }
+
+      /* do nothing */                  // ",jnz 0 0    "; // 27 - do nothing
+
+      wl( "" + reg_b );                 // ",out b      "; // 28 - trasmit value register b (this has to be 1 or 0)
+    }
+
+    //    assembunny_src += ",jnz 1 -21  "; // 30 - jump to instruction  9  (copy d to a)
+
+  }
+
+
+
 
   private static void calculatePart01( String pString, int pInitValueA, boolean pKnzDebug )
   {
