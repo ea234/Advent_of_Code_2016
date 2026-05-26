@@ -1,12 +1,6 @@
 package de.ea234.aoc2016;
 
-/*
- * It should have been NerdkwaRtier
- *             and not Nerdkwa tier
- *
- * ... don't worry, they will deal with it
- *
- */
+import java.util.Base64;
 
 public class DecodingNerdkwatier
 {
@@ -25,6 +19,23 @@ public class DecodingNerdkwatier
     //Simpel toch? Kom next-level typen in Utrecht op ons nerdkwartier
 
     wl( rot13( input ) );
+
+    
+    /*
+     * AOC 2017 - Sponsor
+     *
+     * https://adventofcode.com/2017/sponsors/redirect?url=http%3A%2F%2Fsmartystreets%2Ecom%2Faoc
+     *
+     * SmartyStreets - U2VuZGluZyBDaH Jpc3RtYXMgY2Fy ZHMgdG8gYmFkIG FkZHJlc3Nlcz8K
+     * 
+     * Sending Christmas cards to bad addresses?
+     */
+
+    String input_smarty_streets = "U2VuZGluZyBDaHJpc3RtYXMgY2FyZHMgdG8gYmFkIGFkZHJlc3Nlcz8K";
+
+    String output_smarty_streets = new String( Base64.getDecoder().decode( input_smarty_streets ) );
+
+    wl( output_smarty_streets );
 
     System.exit( 0 );
   }
